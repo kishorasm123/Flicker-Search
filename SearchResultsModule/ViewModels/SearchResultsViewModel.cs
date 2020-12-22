@@ -1,5 +1,6 @@
 ﻿using Application.Common;
-using Application.Common.Events;
+using Application.Common;
+using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
 using System;
@@ -20,6 +21,7 @@ namespace SearchResultsModule.ViewModels
         IImageService imageService = null;
         Dispatcher dispatcher = Dispatcher.CurrentDispatcher;
         private string currentSearchText = string.Empty;
+        private int currentPageNo = 1;
 
         private ObservableCollection<Image> searchResult = new ObservableCollection<Image>();
         public ObservableCollection<Image> SearchResult
@@ -34,6 +36,10 @@ namespace SearchResultsModule.ViewModels
             }
         }
 
+        public DelegateCommand NextCommand { get; set; }
+
+        public DelegateCommand PreviousCommand { get; set; }
+
 
         public SearchResultsViewModel(IUnityContainer unityContainer, IEventAggregator eventAggregator)
         {
@@ -42,47 +48,56 @@ namespace SearchResultsModule.ViewModels
             this.eventAggregator.GetEvent<ImageSearchEvent>().Subscribe((imageSearchContext) => { Task.Run(() => DoSearch(imageSearchContext.Message)); }, ThreadOption.PublisherThread, false,
                 imageSearchContext => { return imageSearchContext.imageSearchContextType == ImageSearchContextType.Request; }
                 );
+
+            NextCommand = new DelegateCommand(ExecuteNextCommand, DefaultCanExecuteCommand);
+            PreviousCommand = new DelegateCommand(ExecutePreviousCommand, DefaultCanExecuteCommand);
         }
 
-        public async void DoSearch(string searchText)
+        public async void DoSearch(string searchText, int pageNo = 1)
         {
             try
             {
                 // Progress reporting.
-                eventAggregator.GetEvent<EventProgress>().Publish("Searching for " + searchText + "...");
+                eventAggregator.GetEvent<ImageSearchEvent>().Publish(new ImageSearchContext() { imageSearchContextType = ImageSearchContextType.Response, Message = "Searching for " + searchText + "..." });
 
                 // Creating object of flicker service.
                 if (imageService == null) imageService = unityContainer.Resolve<IImageService>();
 
                 // Searching & Fetching the flicker image search results.
-                var result = await imageService.ImageSearch(searchText);
+                var result = await imageService.ImageSearch(searchText, pageNo);
 
-                // If same item is searched again, then appending the new page result.
-                if (currentSearchText == searchText)
-                {
-                    foreach (Image image in result)
-                    {
-                        dispatcher.Invoke(() => { SearchResult.Add(image); });
-                    }
-                }
-
-                // If new item is being searched, then clearing & assigning the search result.
-                else
-                {
-                    dispatcher.Invoke(() => { SearchResult = new ObservableCollection<Image>(result); });
-                }
+                dispatcher.Invoke(() => { SearchResult = new ObservableCollection<Image>(result); });
 
                 currentSearchText = searchText;
 
                 // Progress reporting.
-                eventAggregator.GetEvent<EventProgress>().Publish(SearchResult.Count.ToString() + " results found.");
+                eventAggregator.GetEvent<ImageSearchEvent>().Publish(new ImageSearchContext() { imageSearchContextType = ImageSearchContextType.Response, Message = SearchResult.Count.ToString() + " results found." });
             }
             catch (Exception exception)
             {
-                eventAggregator.GetEvent<EventProgress>().Publish(exception.Message);
+                eventAggregator.GetEvent<ImageSearchEvent>().Publish(new ImageSearchContext() { imageSearchContextType = ImageSearchContextType.Response, Message = exception.Message });
             }
 
         }
 
+        private async void ExecutePreviousCommand()
+        {
+            if (currentPageNo > 1)
+            {
+                currentPageNo = currentPageNo - 1;
+                DoSearch(currentSearchText, currentPageNo);
+            }
+        }
+
+        private async void ExecuteNextCommand()
+        {
+            currentPageNo = currentPageNo + 1;
+            DoSearch(currentSearchText, currentPageNo);
+        }
+
+        private bool DefaultCanExecuteCommand()
+        {
+            return true;
+        }
     }
 }

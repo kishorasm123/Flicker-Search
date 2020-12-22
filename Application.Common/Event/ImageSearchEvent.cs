@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Common.Events
+namespace Application.Common
 {
-   public class EventSearch : PubSubEvent<string>
+    public class ImageSearchEvent : PubSubEvent<ImageSearchContext>
     {
     }
 }

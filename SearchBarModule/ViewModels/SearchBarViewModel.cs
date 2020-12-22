@@ -1,5 +1,4 @@
 ﻿using Application.Common;
-using Application.Common.Events;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Ioc;

@@ -36,7 +36,7 @@ namespace SearchResultsModule
         /// <returns>Returns the image search results.</returns>
         /// <exception cref="ImageServiceException">This exeption is thrown when any error occurred while performing search operation.</exception>
         /// <exception cref="ArgumentNullException">This error is thrown if the image serach text is null or whitespaces.</exception>
-        public async Task<List<Image>> ImageSearch(string imageSearchText)
+        public async Task<List<Image>> ImageSearch(string imageSearchText, int pageNo = 0)
         {
             try
             {
@@ -51,6 +51,12 @@ namespace SearchResultsModule
 
                 if (currentSearchText == imageSearchText) currentPage++;
                 currentSearchText = imageSearchText;
+
+                currentPage = 1;
+                if (pageNo > 0)
+                {
+                    currentPage = pageNo;
+                }
 
                 // Configuring image search options & obtaining the search results.
                 PhotoSearchOptions photoSearchOptions = new PhotoSearchOptions() { Tags = imageSearchText, PerPage = imagesPerPage, Page = currentPage };

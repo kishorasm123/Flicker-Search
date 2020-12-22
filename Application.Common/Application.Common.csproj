@@ -50,9 +50,7 @@
   <ItemGroup>
     <Compile Include="Class\ImageSearchContext.cs" />
     <Compile Include="Enumeration\ImageSearchContextType.cs" />
-    <Compile Include="Events\EventProgress.cs" />
-    <Compile Include="Events\EventSearch.cs" />
-    <Compile Include="Events\ImageSearchEvent.cs" />
+    <Compile Include="Event\ImageSearchEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
