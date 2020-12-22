@@ -21,7 +21,7 @@ namespace SearchResultsModule
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.Register<IImageService, FlickerService>();
+            containerRegistry.RegisterSingleton<IImageService, FlickrService>();
             // Nothing.
         }
 

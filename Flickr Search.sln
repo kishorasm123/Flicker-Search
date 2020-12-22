@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30308.118
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flicker Search", "Flicker Search\Flicker Search.csproj", "{CE129E1F-382E-48FD-AAB3-3F9051DE9C41}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flickr Search", "Flicker Search\Flickr Search.csproj", "{CE129E1F-382E-48FD-AAB3-3F9051DE9C41}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SearchBarModule", "SearchBarModule\SearchBarModule.csproj", "{AEEC54BD-D44B-4F19-AFA4-26B70BD5199A}"
 EndProject

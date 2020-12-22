@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Flicker_Search.Properties {
+namespace Flickr_Search.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

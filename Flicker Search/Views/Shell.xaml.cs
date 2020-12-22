@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Flicker_Search
+namespace Flickr_Search
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

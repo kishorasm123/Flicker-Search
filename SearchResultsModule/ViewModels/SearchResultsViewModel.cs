@@ -1,4 +1,5 @@
-﻿using Application.Common.Events;
+﻿using Application.Common;
+using Application.Common.Events;
 using Prism.Events;
 using Prism.Mvvm;
 using System;
@@ -38,8 +39,11 @@ namespace SearchResultsModule.ViewModels
         {
             this.eventAggregator = eventAggregator;
             this.unityContainer = unityContainer;
-            this.eventAggregator.GetEvent<EventSearch>().Subscribe((msg) => { Task.Run(() => DoSearch(msg)); });
+            this.eventAggregator.GetEvent<ImageSearchEvent>().Subscribe((imageSearchContext) => { Task.Run(() => DoSearch(imageSearchContext.Message)); }, ThreadOption.PublisherThread, false,
+                imageSearchContext => { return imageSearchContext.imageSearchContextType == ImageSearchContextType.Request; }
+                );
         }
+
         public async void DoSearch(string searchText)
         {
             try
@@ -50,11 +54,8 @@ namespace SearchResultsModule.ViewModels
                 // Creating object of flicker service.
                 if (imageService == null) imageService = unityContainer.Resolve<IImageService>();
 
-                // Connecting to flicker account via credentials.
-                imageService.ConnectToFlickerService(Constants.FLICKER_API_KEY, Constants.FLICKER_SECRETE_KEY);
-
                 // Searching & Fetching the flicker image search results.
-                var result = await imageService.GetImageSearchResults(searchText, 15);
+                var result = await imageService.ImageSearch(searchText);
 
                 // If same item is searched again, then appending the new page result.
                 if (currentSearchText == searchText)

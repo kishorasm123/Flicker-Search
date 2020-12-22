@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace Flicker_Search
+namespace Flickr_Search
 {
 
     public class BootStrapper : PrismBootstrapper
@@ -23,7 +23,7 @@ namespace Flicker_Search
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.RegisterSingleton(typeof(IImageService), typeof(FlickerService));
+            containerRegistry.RegisterSingleton(typeof(IImageService), typeof(FlickrService));
         }
 
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)

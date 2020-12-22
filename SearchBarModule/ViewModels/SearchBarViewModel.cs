@@ -1,4 +1,5 @@
-﻿using Application.Common.Events;
+﻿using Application.Common;
+using Application.Common.Events;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Ioc;
@@ -43,7 +44,7 @@ namespace SearchBarModule.ViewModels
 
         private void DoSearch()
         {
-            eventAggregator.GetEvent<EventSearch>().Publish(searchText);
+            eventAggregator.GetEvent<ImageSearchEvent>().Publish(new ImageSearchContext() { imageSearchContextType = ImageSearchContextType.Request, Message = searchText });
         }
 
         private bool CanSearch()

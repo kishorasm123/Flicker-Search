@@ -4,9 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Flickr_Search.ViewModels
+namespace Application.Common
 {
-    public class ShellViewModel
+   public enum ImageSearchContextType
     {
+        Null = 0,
+        Request = 1,
+        Response = 2,
     }
 }

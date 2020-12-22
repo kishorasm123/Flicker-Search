@@ -81,11 +81,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="Constants.cs" />
-    <Compile Include="DataObjects\Image.cs" />
+    <Compile Include="Class\Exception\ImageServiceException.cs" />
+    <Compile Include="Class\DataObjects\Image.cs" />
     <Compile Include="SearchResultsModuleInit.cs" />
-    <Compile Include="Services\FlickerService.cs" />
-    <Compile Include="Services\IImageService.cs" />
+    <Compile Include="Class\Implementation\ImageService\FlickrService.cs" />
+    <Compile Include="Interface\IImageService.cs" />
     <Compile Include="ViewModels\SearchResultsViewModel.cs" />
     <Compile Include="Views\SearchResults.xaml.cs">
       <DependentUpon>SearchResults.xaml</DependentUpon>
