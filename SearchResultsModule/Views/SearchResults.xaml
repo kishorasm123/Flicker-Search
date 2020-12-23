@@ -18,16 +18,16 @@
 
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <UniformGrid></UniformGrid>
+                    <UniformGrid Columns="5" Rows="2" ></UniformGrid>
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
 
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Border BorderThickness="0" BorderBrush="Gray">
-                        <StackPanel>
-                            <Image Source="{Binding Link}" ></Image>
-                            <TextBlock Text="{Binding Title}"  HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                    <Border BorderThickness="0" BorderBrush="Gray" >
+                        <StackPanel >
+                            <Image Source="{Binding Link}" Stretch="UniformToFill" ></Image>
+                            <TextBlock Text="{Binding Title}" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" VerticalAlignment="Bottom"></TextBlock>
                         </StackPanel>
                     </Border>
                 </DataTemplate>
@@ -36,9 +36,9 @@
         </ListBox>
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Button MinWidth="150" FontSize="25" Command="{Binding PreviousCommand}" >&lt;&lt; Previous</Button>
+            <Button MinWidth="150" FontSize="25" Command="{Binding PreviousCommand}" >&lt;&lt; Previous Page</Button>
             <Separator Margin="10,0,10,0"></Separator>
-            <Button MinWidth="150" FontSize="25" Command="{Binding NextCommand}">Next &gt;&gt;</Button>
+            <Button MinWidth="150" FontSize="25" Command="{Binding NextCommand}">Next Page &gt;&gt;</Button>
 
         </StackPanel>
 

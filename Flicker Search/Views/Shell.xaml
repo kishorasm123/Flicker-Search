@@ -10,7 +10,7 @@
     
     <DockPanel>
         <ContentControl DockPanel.Dock="Top" prism:RegionManager.RegionName="SearchBar" Height="50"></ContentControl>
-        <ContentControl DockPanel.Dock="Bottom" prism:RegionManager.RegionName="StatusBar" Height="20"></ContentControl>
+        <ContentControl DockPanel.Dock="Bottom" prism:RegionManager.RegionName="StatusBar" Height="40"></ContentControl>
         <ContentControl DockPanel.Dock="Top" prism:RegionManager.RegionName="SearchResults"></ContentControl>
     </DockPanel>
     

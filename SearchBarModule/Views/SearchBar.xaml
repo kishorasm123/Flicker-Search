@@ -16,7 +16,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid>
+    <Grid Background="AliceBlue">
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
           
             <TextBox FontSize="17" MinWidth="400" VerticalContentAlignment="Center" Template="{StaticResource controlInputTextBox}">
