@@ -7,7 +7,7 @@
              mc:Ignorable="d"
              xmlns:prism="http://prismlibrary.com/"
              d:DesignHeight="100" d:DesignWidth="800" prism:ViewModelLocator.AutoWireViewModel="True">
-    <Grid Background="AliceBlue">
-        <TextBlock Text="{Binding ProgressText}" ScrollViewer.VerticalScrollBarVisibility="Disabled" TextWrapping="WrapWithOverflow" FontStyle="Italic" Foreground="Red" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15"></TextBlock>
+    <Grid Background="#ffc425">
+        <TextBlock Text="{Binding ProgressText}" Foreground="White" ScrollViewer.VerticalScrollBarVisibility="Disabled" TextWrapping="WrapWithOverflow" FontStyle="Italic" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15"></TextBlock>
     </Grid>
 </UserControl>

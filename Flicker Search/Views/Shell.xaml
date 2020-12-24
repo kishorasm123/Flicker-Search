@@ -6,8 +6,12 @@
         xmlns:local="clr-namespace:Flickr_Search"
         xmlns:prism="http://prismlibrary.com/"
         mc:Ignorable="d"
-        Title="Flicker Photo Search" MinHeight="450" MinWidth="800" prism:ViewModelLocator.AutoWireViewModel="True">
-    
+        Title="Flicker Photo Search" WindowStyle="SingleBorderWindow" MinHeight="450" MinWidth="800" prism:ViewModelLocator.AutoWireViewModel="True">
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="5" />
+    </WindowChrome.WindowChrome>
+
     <DockPanel>
         <ContentControl DockPanel.Dock="Top" prism:RegionManager.RegionName="SearchBar" Height="50"></ContentControl>
         <ContentControl DockPanel.Dock="Bottom" prism:RegionManager.RegionName="StatusBar" Height="40"></ContentControl>

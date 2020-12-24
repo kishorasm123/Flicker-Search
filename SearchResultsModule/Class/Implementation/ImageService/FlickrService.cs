@@ -14,7 +14,7 @@ namespace SearchResultsModule
         private const string FLICKER_API_KEY = "6dec9b2f5769cb67a4741f6ee0b0069d";
         private Flickr flickr = null;
         private int currentPage = 1;
-        private int imagesPerPage = 10;
+        private int imagesPerPage = 50;
         private string currentSearchText = string.Empty;
 
         private void ConnectToFlickerService()
