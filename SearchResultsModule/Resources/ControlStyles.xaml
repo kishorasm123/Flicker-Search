@@ -6,19 +6,30 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <!--<Border x:Name="borderButton" BorderThickness="1" BorderBrush="Wheat" CornerRadius="5">-->
-                    <Grid x:Name="gridButton" Background="#ffc425">
-                        <TextBlock x:Name="txtButton" Text="{TemplateBinding Content}"  FontSize="14" FontFamily="Arial" Foreground="White" 
-                                       FontWeight="SemiBold" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"
-                                       RenderOptions.ClearTypeHint="Auto" TextOptions.TextRenderingMode="Aliased"  TextOptions.TextFormattingMode="Display"></TextBlock>
-                    </Grid>
-                    <!--</Border>-->
+                    <Border x:Name="borderButton" BorderThickness="0" Padding="0" BorderBrush="#1ba1e2"  CornerRadius="5" MinHeight="35">
+                        <Grid x:Name="gridButton" Background="#1ba1e2">
+                            <TextBlock x:Name="txtButton" Text="{TemplateBinding Content}"  FontSize="14"  Foreground="White"
+                                       FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                        ></TextBlock>
+                        </Grid>
+                    </Border>
 
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="gridButton" Property="Background" Value="#2d7d9a"/>
-                            <Setter TargetName="txtButton" Property="Foreground" Value="Black"></Setter>
-                            <!--<Setter TargetName="txtButton" Property="Foreground" Value="#000000"/>-->
+                            <Setter TargetName="gridButton" Property="Background" Value="#1d1d1d"/>
+                            <Setter TargetName="txtButton" Property="Foreground" Value="white"></Setter>
+
+                            <!--<Setter Property="Grid.ZIndex" Value="1"/>
+                            <Setter Property="RenderTransform">
+                                <Setter.Value>
+                                    <ScaleTransform  CenterX="0" CenterY="0" ScaleX="1.1" ScaleY="1"/>
+                                </Setter.Value>
+                            </Setter>-->
+                        </Trigger>
+
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="gridButton" Property="Background" Value="#1ba1e2"/>
+                            <Setter TargetName="txtButton" Property="Foreground" Value="white"></Setter>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

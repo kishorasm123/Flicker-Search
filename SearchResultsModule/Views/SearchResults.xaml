@@ -15,30 +15,27 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    
-    <Grid Background="#5D5A58">
+
+    <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"></RowDefinition>
             <RowDefinition Height="50"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <ListBox Background="#5D5A58" Grid.Row="0"  ItemsSource="{Binding SearchResult}" HorizontalContentAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Disabled"  BorderThickness="0">
+        <ListBox Background="Transparent" Grid.Row="0"  ItemsSource="{Binding SearchResult}" HorizontalContentAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Disabled"  BorderThickness="0">
 
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel></WrapPanel>
-                    <!--<UniformGrid Columns="5" Rows="5" VerticalAlignment="Top" >
-                        
-                    </UniformGrid>-->
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
-            
+
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Border BorderThickness="1" BorderBrush="Wheat" >
-                        <VirtualizingStackPanel VirtualizationMode="Recycling">
-                            <Image Source="{Binding Link}" Stretch="Uniform" MaxHeight="300" MaxWidth="300" ></Image>
-                            <TextBlock Text="{Binding Title}"  MaxWidth="300" Foreground="Wheat" TextWrapping="WrapWithOverflow" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Bottom"></TextBlock>
+                    <Border BorderThickness="1" BorderBrush="#1d1d1d" >
+                        <VirtualizingStackPanel VirtualizationMode="Recycling" MaxHeight="325" MaxWidth="325">
+                            <Image Source="{Binding Link}" Stretch="Uniform"  ></Image>
+                            <TextBlock Text="{Binding Title}"  Foreground="#1d1d1d" TextWrapping="WrapWithOverflow" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Bottom"></TextBlock>
                         </VirtualizingStackPanel>
                     </Border>
                 </DataTemplate>
