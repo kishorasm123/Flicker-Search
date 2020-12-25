@@ -9,20 +9,23 @@
              d:DesignHeight="450" d:DesignWidth="800" prism:ViewModelLocator.AutoWireViewModel="True">
 
     <UserControl.Resources>
+
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/SearchResultsModule;component/Resources/ControlStyles.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="pack://application:,,,/Application.Common;component/Resources/ControlTemplates.xaml"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
+
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
 
     <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"></RowDefinition>
-            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <ListBox Background="Transparent" Grid.Row="0"  ItemsSource="{Binding SearchResult}" HorizontalContentAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Disabled"  BorderThickness="0">
+        <ListBox Background="Transparent" Grid.Row="0" Margin="5" ItemsSource="{Binding SearchResult}" HorizontalContentAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Disabled"  BorderThickness="0">
 
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -44,9 +47,9 @@
         </ListBox>
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Button Style="{StaticResource buttonStyle}" MinWidth="150" FontSize="25" Command="{Binding PreviousCommand}" >&lt;&lt; Previous Page</Button>
+            <Button Style="{StaticResource  defaultbuttonStyle}" MinWidth="125" FontSize="25" Command="{Binding PreviousCommand}" Visibility="{Binding Path=CanPageButtonsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" >Previous Page</Button>
             <Separator Margin="10,0,10,0"></Separator>
-            <Button  Style="{StaticResource buttonStyle}" MinWidth="150" FontSize="25" Command="{Binding NextCommand}">Next Page &gt;&gt;</Button>
+            <Button  Style="{StaticResource defaultbuttonStyle}" MinWidth="125" FontSize="25" Command="{Binding NextCommand}" Visibility="{Binding Path=CanPageButtonsVisible, Converter={StaticResource BooleanToVisibilityConverter}}">Next Page</Button>
 
         </StackPanel>
 

@@ -6,16 +6,58 @@
         xmlns:local="clr-namespace:Flickr_Search"
         xmlns:prism="http://prismlibrary.com/"
         mc:Ignorable="d"
-        Title="Flicker Photo Search" WindowStyle="SingleBorderWindow" MinHeight="450" MinWidth="800" prism:ViewModelLocator.AutoWireViewModel="True">
+        Title="Flickr Photo Search" MinHeight="450" MinWidth="800" prism:ViewModelLocator.AutoWireViewModel="True">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Application.Common;component/Resources/ControlTemplates.xaml"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
 
     <WindowChrome.WindowChrome>
-        <WindowChrome CaptionHeight="5" />
+        <WindowChrome CaptionHeight="35" />
     </WindowChrome.WindowChrome>
 
-    <DockPanel>
-        <ContentControl DockPanel.Dock="Top" prism:RegionManager.RegionName="SearchBar" Height="50"></ContentControl>
-        <ContentControl DockPanel.Dock="Bottom" prism:RegionManager.RegionName="StatusBar" Height="40"></ContentControl>
-        <ContentControl DockPanel.Dock="Top" prism:RegionManager.RegionName="SearchResults"></ContentControl>
-    </DockPanel>
-    
+    <Window.CommandBindings>
+        <CommandBinding Command="{x:Static SystemCommands.CloseWindowCommand}" CanExecute="CommandBinding_CanExecute" Executed="CommandBinding_Executed_Close" />
+        <CommandBinding Command="{x:Static SystemCommands.MaximizeWindowCommand}" CanExecute="CommandBinding_CanExecute" Executed="CommandBinding_Executed_Maximize" />
+        <CommandBinding Command="{x:Static SystemCommands.MinimizeWindowCommand}" CanExecute="CommandBinding_CanExecute" Executed="CommandBinding_Executed_Minimize" />
+        <CommandBinding Command="{x:Static SystemCommands.RestoreWindowCommand}" CanExecute="CommandBinding_CanExecute" Executed="CommandBinding_Executed_Restore" />
+    </Window.CommandBindings>
+
+    <Grid Background="#1ba1e2" Margin="1">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Height="30" Margin="5" VerticalAlignment="Center">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" >
+                <Image Source="/Resources/Images/icon_Flickr.png" Height="25" Width="25" VerticalAlignment="Center" Margin="5,5,0,0"/>
+                <TextBlock FontSize="18" FontWeight="Medium" Foreground="White" VerticalAlignment="Bottom" Margin="5,0,0,0">Flickr Search</TextBlock>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
+                <Button Style="{StaticResource MinimizeButtonStyle}" WindowChrome.IsHitTestVisibleInChrome="True" ToolTip="Minimize"
+                            Command="{x:Static SystemCommands.MinimizeWindowCommand}"/>
+                <Button x:Name="RestoreButton" Visibility="Collapsed" Style="{StaticResource RestoreButtonStyle}"
+                            Command="{x:Static SystemCommands.RestoreWindowCommand}" WindowChrome.IsHitTestVisibleInChrome="True" ToolTip="Restore"/>
+                <Button x:Name="MaximizeButton" Visibility="Visible" Style="{StaticResource MaximizeButtonStyle}"
+                            Command="{x:Static SystemCommands.MaximizeWindowCommand}" WindowChrome.IsHitTestVisibleInChrome="True" ToolTip="Maximize" />
+                <Button Style="{StaticResource CloseButtonStyle}" WindowChrome.IsHitTestVisibleInChrome="True" ToolTip="Close"
+                            Command="{x:Static SystemCommands.CloseWindowCommand}"/>
+            </StackPanel>
+        </Grid>
+
+        <DockPanel Grid.Row="1">
+            <ContentControl DockPanel.Dock="Top" prism:RegionManager.RegionName="SearchBar" Height="50"></ContentControl>
+            <ContentControl DockPanel.Dock="Bottom" prism:RegionManager.RegionName="StatusBar" Height="40"></ContentControl>
+            <ContentControl DockPanel.Dock="Top" prism:RegionManager.RegionName="SearchResults"></ContentControl>
+        </DockPanel>
+    </Grid>
+
+
 </Window>

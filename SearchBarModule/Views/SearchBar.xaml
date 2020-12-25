@@ -11,7 +11,7 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/SearchBarModule;component/Resources/ControlStyles.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="pack://application:,,,/Application.Common;component/Resources/ControlTemplates.xaml"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -27,7 +27,7 @@
 
             <Separator Width="50" Visibility="Hidden"></Separator>
 
-            <Button Command="{Binding Search}" MinWidth="150" FontSize="25">Search</Button>
+            <Button Command="{Binding Search}" Style="{StaticResource defaultbuttonStyle}" MinWidth="125" FontSize="25">Search</Button>
 
         </StackPanel>
     </Grid>

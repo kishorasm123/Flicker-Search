@@ -21,6 +21,19 @@ namespace SearchResultsModule.ViewModels
         Dispatcher dispatcher = Dispatcher.CurrentDispatcher;
         private string currentSearchText = string.Empty;
 
+        private bool canPageButtonsVisible;
+        public bool CanPageButtonsVisible
+        {
+            get
+            {
+                return canPageButtonsVisible;
+            }
+            set
+            {
+                SetProperty(ref canPageButtonsVisible, value);
+            }
+        }
+
         public string CurrentSearchText
         {
             get
@@ -55,6 +68,8 @@ namespace SearchResultsModule.ViewModels
 
         public SearchResultsViewModel(IUnityContainer unityContainer, IEventAggregator eventAggregator)
         {
+            CanPageButtonsVisible = false;
+
             this.eventAggregator = eventAggregator;
             this.unityContainer = unityContainer;
             this.eventAggregator.GetEvent<ImageSearchEvent>().Subscribe((imageSearchContext) => { Task.Run(() => { currentPageNo = 1; DoSearch(imageSearchContext.Message); }); }, ThreadOption.PublisherThread, false,
@@ -87,11 +102,12 @@ namespace SearchResultsModule.ViewModels
                 // Setting the search result to observable collection for binding.
                 dispatcher.Invoke(() => { SearchResult = new ObservableCollection<Image>(result); });
 
-                // Setting the searched text to current serach text variable.
+                // Setting the searched text to current search text variable.
                 CurrentSearchText = searchText;
+                CanPageButtonsVisible = true;
 
                 // Progress reporting.
-                eventAggregator.GetEvent<ImageSearchEvent>().Publish(new ImageSearchContext() { imageSearchContextType = ImageSearchContextType.Response, Message = SearchResult.Count.ToString() + " results found." });
+                eventAggregator.GetEvent<ImageSearchEvent>().Publish(new ImageSearchContext() { imageSearchContextType = ImageSearchContextType.Response, Message = SearchResult.Count.ToString() + " results found for '" + currentSearchText  +"'." });
             }
             catch (Exception exception)
             {

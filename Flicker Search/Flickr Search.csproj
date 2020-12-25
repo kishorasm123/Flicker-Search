@@ -130,6 +130,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Application.Common\Application.Common.csproj">
+      <Project>{7cf5dff3-3b16-4515-a261-66188c06b272}</Project>
+      <Name>Application.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SearchBarModule\SearchBarModule.csproj">
       <Project>{AEEC54BD-D44B-4F19-AFA4-26B70BD5199A}</Project>
       <Name>SearchBarModule</Name>
@@ -142,6 +146,9 @@
       <Project>{792C5668-F369-4514-8726-79EEC057498B}</Project>
       <Name>StatusBarModule</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\icon_Flickr.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
