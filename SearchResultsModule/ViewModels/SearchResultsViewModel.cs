@@ -43,6 +43,10 @@ namespace SearchResultsModule.ViewModels
             set
             {
                 SetProperty(ref currentSearchText, value);
+
+                // Updating navigation buttons visibility based on the text.
+                if (!string.IsNullOrWhiteSpace(currentSearchText)) CanPageButtonsVisible = true;
+                else CanPageButtonsVisible = false;
             }
         }
 
@@ -104,10 +108,9 @@ namespace SearchResultsModule.ViewModels
 
                 // Setting the searched text to current search text variable.
                 CurrentSearchText = searchText;
-                CanPageButtonsVisible = true;
 
                 // Progress reporting.
-                eventAggregator.GetEvent<ImageSearchEvent>().Publish(new ImageSearchContext() { imageSearchContextType = ImageSearchContextType.Response, Message = SearchResult.Count.ToString() + " results found for '" + currentSearchText  +"'." });
+                eventAggregator.GetEvent<ImageSearchEvent>().Publish(new ImageSearchContext() { imageSearchContextType = ImageSearchContextType.Response, Message = SearchResult.Count.ToString() + " results found for '" + currentSearchText + "'." });
             }
             catch (Exception exception)
             {
