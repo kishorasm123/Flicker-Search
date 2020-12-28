@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Flickr_Search
+namespace Flickr_Search.Views
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -23,50 +23,27 @@ namespace Flickr_Search
         public Shell()
         {
             InitializeComponent();
+            Loaded += Shell_Loaded;
         }
 
-        // Can execute
-        private void CommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        private void Shell_Loaded(object sender, RoutedEventArgs e)
         {
-            e.CanExecute = true;
-        }
-
-        // Minimize
-        private void CommandBinding_Executed_Minimize(object sender, ExecutedRoutedEventArgs e)
-        {
-            SystemCommands.MinimizeWindow(this);
-        }
-
-        // Maximize
-        private void CommandBinding_Executed_Maximize(object sender, ExecutedRoutedEventArgs e)
-        {
-            SystemCommands.MaximizeWindow(this);
-        }
-
-        // Restore
-        private void CommandBinding_Executed_Restore(object sender, ExecutedRoutedEventArgs e)
-        {
-            SystemCommands.RestoreWindow(this);
-        }
-
-        // Close
-        private void CommandBinding_Executed_Close(object sender, ExecutedRoutedEventArgs e)
-        {
-            SystemCommands.CloseWindow(this);
-        }
-
-        // State change
-        private void MainWindowStateChangeRaised(object sender, EventArgs e)
-        {
-            if (WindowState == WindowState.Maximized)
+            if (DataContext is IWindowCommands windowCommands)
             {
-                RestoreButton.Visibility = Visibility.Visible;
-                MaximizeButton.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                RestoreButton.Visibility = Visibility.Collapsed;
-                MaximizeButton.Visibility = Visibility.Visible;
+                windowCommands.CloseWindow += () =>
+                 {
+                     SystemCommands.CloseWindow(this);
+                 };
+
+                windowCommands.MinimizeWindow += () =>
+                {
+                    SystemCommands.MinimizeWindow(this);
+                };
+
+                windowCommands.MaximizeWindow += () =>
+                {
+                    SystemCommands.MaximizeWindow(this);
+                };
             }
         }
     }

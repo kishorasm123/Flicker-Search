@@ -1,4 +1,6 @@
-﻿using Prism.Ioc;
+﻿using Application.Logging;
+using Flickr_Search.Views;
+using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Unity;
 using SearchBarModule;
@@ -13,7 +15,6 @@ using System.Windows;
 
 namespace Flickr_Search
 {
-
     public class BootStrapper : PrismBootstrapper
     {
         protected override DependencyObject CreateShell()
@@ -24,6 +25,7 @@ namespace Flickr_Search
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterSingleton(typeof(IImageService), typeof(FlickrService));
+            containerRegistry.RegisterSingleton(typeof(ILogger), typeof(Logger));
         }
 
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
@@ -32,6 +34,5 @@ namespace Flickr_Search
             moduleCatalog.AddModule(typeof(StatusBarModuleInit));
             moduleCatalog.AddModule(typeof(SearchResultsModuleInit));
         }
-
     }
 }

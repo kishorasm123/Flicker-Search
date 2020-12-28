@@ -96,6 +96,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="BootStrapper.cs" />
+    <Compile Include="Interface\IWindowCommands.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="Views\Shell.xaml.cs">
       <DependentUpon>Shell.xaml</DependentUpon>
@@ -133,6 +134,10 @@
     <ProjectReference Include="..\Application.Common\Application.Common.csproj">
       <Project>{7cf5dff3-3b16-4515-a261-66188c06b272}</Project>
       <Name>Application.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application.Logging\Application.Logging.csproj">
+      <Project>{88e648ff-7595-42ec-aa16-6683b7224b07}</Project>
+      <Name>Application.Logging</Name>
     </ProjectReference>
     <ProjectReference Include="..\SearchBarModule\SearchBarModule.csproj">
       <Project>{AEEC54BD-D44B-4F19-AFA4-26B70BD5199A}</Project>
