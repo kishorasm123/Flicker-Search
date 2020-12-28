@@ -31,7 +31,7 @@ namespace Application.Logging
                 throw new NullReferenceException("Stream writer is null. So file logging cannot be processed.");
             }
 
-            streamWriter.WriteLine(imageSearchContext.Message);
+            streamWriter.WriteLine(DateTime.Now.ToString() + " - " + imageSearchContext.Message);
             streamWriter.Flush();
         }
 
