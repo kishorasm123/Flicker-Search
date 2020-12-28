@@ -24,12 +24,14 @@ namespace Flickr_Search
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            // Registering all the dependency services.
             containerRegistry.RegisterSingleton(typeof(IImageService), typeof(FlickrService));
             containerRegistry.RegisterSingleton(typeof(ILogger), typeof(Logger));
         }
 
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
         {
+            // Registering all the modules.
             moduleCatalog.AddModule(typeof(SearchBarModuleInit));
             moduleCatalog.AddModule(typeof(StatusBarModuleInit));
             moduleCatalog.AddModule(typeof(SearchResultsModuleInit));

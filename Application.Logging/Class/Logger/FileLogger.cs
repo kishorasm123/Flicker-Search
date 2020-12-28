@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Application.Common;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -23,15 +24,14 @@ namespace Application.Logging
             }
         }
 
-        public void Log(string information)
+        public void Log(ImageSearchContext imageSearchContext)
         {
             if (streamWriter == null)
             {
                 throw new NullReferenceException("Stream writer is null. So file logging cannot be processed.");
             }
 
-            string logMessage = string.Empty;
-            streamWriter.WriteLine(logMessage);
+            streamWriter.WriteLine(imageSearchContext.Message);
             streamWriter.Flush();
         }
 

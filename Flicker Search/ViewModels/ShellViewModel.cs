@@ -21,9 +21,12 @@ namespace Flickr_Search.ViewModels
         public ShellViewModel(IUnityContainer unityContainer)
         {
             this.unityContainer = unityContainer;
+
+            // Opening logger object.
             logger = unityContainer.Resolve<ILogger>();
             logger.Open();
 
+            // Assigning all the MVVM commands.
             CloseApplication = new DelegateCommand(ExecuteClose);
             MinimizeApplication = new DelegateCommand(ExecuteMinimizeWindow);
             MaximizeApplication = new DelegateCommand(ExecuteMaximizeWindow);
@@ -41,6 +44,7 @@ namespace Flickr_Search.ViewModels
 
         private void ExecuteClose()
         {
+            // Closing the logger and application.
             logger.Close();
             CloseWindow?.Invoke();
         }

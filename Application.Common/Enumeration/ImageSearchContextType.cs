@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace Application.Common
 {
-   public enum ImageSearchContextType
+    public enum ImageSearchContextType
     {
         Null = 0,
         Request = 1,
         Response = 2,
+        Log = 3
     }
 }

@@ -30,11 +30,12 @@ namespace StatusBarModule.ViewModels
         public StatusBarViewModel(IEventAggregator eventAggregator)
         {
             this.eventAggregator = eventAggregator;
-            //this.eventAggregator.GetEvent<EventProgress>().Subscribe(this.ReportProgress);
+
+            // Subscribing to events.
             this.eventAggregator.GetEvent<ImageSearchEvent>().Subscribe((imageSearchContext) => { ReportProgress(imageSearchContext.Message); }, ThreadOption.PublisherThread, false,
                 imageSearchContext =>
                 {
-                    return imageSearchContext.imageSearchContextType == ImageSearchContextType.Response;
+                    return imageSearchContext.imageSearchContextType == ImageSearchContextType.Log;
                 });
         }
         private void ReportProgress(string progress)

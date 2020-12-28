@@ -1,4 +1,5 @@
 ﻿using Application.Common;
+using Application.Logging;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
@@ -15,6 +16,7 @@ namespace SearchResultsModule.ViewModels
 {
     public class SearchResultsViewModel : BindableBase
     {
+        ILogger logger;
         IEventAggregator eventAggregator;
         IUnityContainer unityContainer;
         IImageService imageService = null;
@@ -72,14 +74,19 @@ namespace SearchResultsModule.ViewModels
 
         public SearchResultsViewModel(IUnityContainer unityContainer, IEventAggregator eventAggregator)
         {
-            CanPageButtonsVisible = false;
-
             this.eventAggregator = eventAggregator;
             this.unityContainer = unityContainer;
-            this.eventAggregator.GetEvent<ImageSearchEvent>().Subscribe((imageSearchContext) => { Task.Run(() => { currentPageNo = 1; DoSearch(imageSearchContext.Message); }); }, ThreadOption.PublisherThread, false,
+
+            // Opening logger object.
+            logger = unityContainer.Resolve<ILogger>();
+
+            // Subscribing to search event.
+            CanPageButtonsVisible = false;
+            this.eventAggregator.GetEvent<ImageSearchEvent>().Subscribe((imageSearchContext) => { Task.Run(() => { currentPageNo = 1; DoSearch(imageSearchContext.SearchText); }); }, ThreadOption.PublisherThread, false,
                 imageSearchContext => { return imageSearchContext.imageSearchContextType == ImageSearchContextType.Request; }
                 );
 
+            // Assigning all the MVVM commands.
             NextCommand = new DelegateCommand(ExecuteNextCommand, DefaultCanExecuteCommand).ObservesProperty(() => CurrentSearchText);
             PreviousCommand = new DelegateCommand(ExecutePreviousCommand, DefaultCanExecuteCommand).ObservesProperty(() => CurrentSearchText);
         }
@@ -95,7 +102,7 @@ namespace SearchResultsModule.ViewModels
                 }
 
                 // Progress reporting.
-                eventAggregator.GetEvent<ImageSearchEvent>().Publish(new ImageSearchContext() { imageSearchContextType = ImageSearchContextType.Response, Message = "Searching for " + searchText + "..." });
+                logger.Log(new ImageSearchContext() { Message = "Searching for " + searchText + "..." }); ;
 
                 // Creating object of flicker service.
                 if (imageService == null) imageService = unityContainer.Resolve<IImageService>();
@@ -110,11 +117,11 @@ namespace SearchResultsModule.ViewModels
                 CurrentSearchText = searchText;
 
                 // Progress reporting.
-                eventAggregator.GetEvent<ImageSearchEvent>().Publish(new ImageSearchContext() { imageSearchContextType = ImageSearchContextType.Response, Message = SearchResult.Count.ToString() + " results found for '" + currentSearchText + "'." });
+                logger.Log(new ImageSearchContext() { Message = SearchResult.Count.ToString() + " results found for '" + currentSearchText + "'." });
             }
             catch (Exception exception)
             {
-                eventAggregator.GetEvent<ImageSearchEvent>().Publish(new ImageSearchContext() { imageSearchContextType = ImageSearchContextType.Response, Message = exception.Message });
+                logger.Log(new ImageSearchContext() { Message = exception.Message });
             }
         }
 
@@ -122,6 +129,7 @@ namespace SearchResultsModule.ViewModels
         {
             if (currentPageNo > 1)
             {
+                logger.Log(new ImageSearchContext() { Message = $"Pressed 'Previous' button. So fetching previous page({currentPageNo}) results for '" + currentSearchText + "'..." }); ;
                 currentPageNo = currentPageNo - 1;
                 await Task.Run(() => DoSearch(currentSearchText, currentPageNo));
             }
@@ -129,6 +137,7 @@ namespace SearchResultsModule.ViewModels
 
         private async void ExecuteNextCommand()
         {
+            logger.Log(new ImageSearchContext() { Message = $"Pressed 'Next' button. So searching more page({currentPageNo}) results for '" + currentSearchText + "'..." }); ;
             currentPageNo = currentPageNo + 1;
             await Task.Run(() => DoSearch(currentSearchText, currentPageNo));
         }

@@ -10,6 +10,8 @@ namespace Application.Common
     {
         public string Message { get; set; }
 
+        public string SearchText { get; set; }
+
         public ImageSearchContextType imageSearchContextType { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Application.Common;
+using Application.Logging;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Ioc;
@@ -9,11 +10,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Unity;
 
 namespace SearchBarModule.ViewModels
 {
     public class SearchBarViewModel : BindableBase
     {
+        ILogger logger;
         IEventAggregator eventAggregator;
 
         #region Properties
@@ -35,15 +38,21 @@ namespace SearchBarModule.ViewModels
 
         #endregion Properties
 
-        public SearchBarViewModel(IEventAggregator eventAggregator)
+        public SearchBarViewModel(IEventAggregator eventAggregator, IUnityContainer unityContainer)
         {
             this.eventAggregator = eventAggregator;
+            logger = unityContainer.Resolve<ILogger>();
+
+            // Assigning all the MVVM commands.
             Search = new DelegateCommand(DoSearch, CanSearch).ObservesProperty(() => SearchText);
         }
 
         private void DoSearch()
         {
-            eventAggregator.GetEvent<ImageSearchEvent>().Publish(new ImageSearchContext() { imageSearchContextType = ImageSearchContextType.Request, Message = searchText });
+            ImageSearchContext imageSearchContext = new ImageSearchContext() { imageSearchContextType = ImageSearchContextType.Request, SearchText= searchText, Message = "Search for " + searchText + "..." };
+            logger.Log(imageSearchContext);
+
+            eventAggregator.GetEvent<ImageSearchEvent>().Publish(imageSearchContext);
         }
 
         private bool CanSearch()

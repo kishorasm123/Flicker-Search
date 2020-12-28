@@ -121,6 +121,10 @@
       <Project>{7CF5DFF3-3B16-4515-A261-66188C06B272}</Project>
       <Name>Application.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Application.Logging\Application.Logging.csproj">
+      <Project>{88e648ff-7595-42ec-aa16-6683b7224b07}</Project>
+      <Name>Application.Logging</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
